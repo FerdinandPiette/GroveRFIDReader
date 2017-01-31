@@ -1,6 +1,13 @@
 #include "GroveRFIDReader.h"
 
-GroveRFIDReader::GroveRFIDReader(GrovePin pins, unsigned char tagBufferSize, unsigned char charBufferSize) {
+GroveRFIDReader::GroveRFIDReader() {}
+
+GroveRFIDReader::~GroveRFIDReader() {
+	delete this->_serialRFID;
+	delete this->_charBuffer;
+}
+
+void GroveRFIDReader::initialize(GrovePin pins, unsigned char tagBufferSize, unsigned char charBufferSize) {	
 	this->_pinRX = pins.pin2;
 	this->_pinTX = pins.pin1;
 	this->_charBufferSize = charBufferSize;
@@ -11,11 +18,7 @@ GroveRFIDReader::GroveRFIDReader(GrovePin pins, unsigned char tagBufferSize, uns
 	this->_tagBufferIndexRead = 0;
 	this->_tagBufferIndexWrite = 0;
 	this->_serialRFID = new SoftwareSerial(this->_pinTX, this->_pinRX);
-}
-
-GroveRFIDReader::~GroveRFIDReader() {
-	delete this->_serialRFID;
-	delete this->_charBuffer;
+	this->_serialRFID->begin(9600);
 }
 
 void GroveRFIDReader::_readSerial() {
@@ -55,10 +58,6 @@ void GroveRFIDReader::_processCharBuffer() {
 	}
 	this->_charBufferIndex = 0;
 };
-
-void GroveRFIDReader::initialize() {	
-	this->_serialRFID->begin(9600);
-}
 
 boolean GroveRFIDReader::isTagAvailable() {
 	this->_readSerial();

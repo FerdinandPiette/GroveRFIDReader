@@ -22,9 +22,9 @@ class GroveRFIDReader {
 		void _processCharBuffer();
 		
 	public:
-		GroveRFIDReader(GrovePin pins, unsigned char tabBufferSize = 64, unsigned char charBufferSize = 16);
+		GroveRFIDReader();
 		virtual ~GroveRFIDReader();
-		void initialize();
+		void initialize(GrovePin pins, unsigned char tabBufferSize = 64, unsigned char charBufferSize = 16);
 		boolean isTagAvailable();
 		unsigned long read();
 };
