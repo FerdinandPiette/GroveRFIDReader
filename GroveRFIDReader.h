@@ -3,7 +3,7 @@
 
 #include <Arduino.h>
 #include <SoftwareSerial.h>
-#include "../Grove/Grove.h"
+#include <Grove.h>
 
 class GroveRFIDReader {
 	private:
